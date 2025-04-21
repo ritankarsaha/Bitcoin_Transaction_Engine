@@ -1,0 +1,14 @@
+version: '3'
+services:
+  btc-node:
+    build: .
+    container_name: bitcoin-tx-demo
+    ports:
+      - "18443:18443"
+    volumes:
+      - bitcoin-data:/root/.bitcoin
+    tty: true
+    stdin_open: true
+
+volumes:
+  bitcoin-data:
