@@ -1,3 +1,7 @@
+# P2Poolv2 Atomic-Swap Module
+
+A Rust-based toolkit for trustless, non-custodial atomic swaps of P2Pool v2 sharechain rewards into Bitcoin, leveraging both the Lightning Network (via LDK or Core-Lightning) and the Ark protocol.
+
 ## Steps to run the project properly
 
 1. Clone the repository properly
@@ -11,16 +15,17 @@ git clone https://github.com/ritankarsaha/Bitcoin_Transaction_Engine.git
 cd Bitcoin_Transaction_Engine
 ```
 
-3. Build and do the transactions properly
+3. Build the environment and execute sample Liquid transactions
 
 ```bash
 sudo docker compose up --build
 ```
 
-The app is good to run :) View the outputs on the terminal.
+The app is good to run :) You can View the outputs on the terminal properly. Logs also have been added for more clarity. 
 
 
-If you have already taken the project for a spin, you have already created a wallet, so the new wallet doesn't load. It will use the previous wallet by default and you will get an output somewhat like this. :)
+If you had already earlier taken the project for a spin, a default wallet has already been created, so the new wallet doesn't load. It will be using the previous wallet by default and you will get an output somewhat like this. :)
+
 ```bash
 Compose can now delegate builds to bake for better performance.
  To do so, set COMPOSE_BAKE=true.
@@ -76,14 +81,14 @@ bitcoin-tx-demo  | Second txid: 77275e49170f6aef186e920f30a832700d2bb10d5b5f9bb6
 bitcoin-tx-demo  | Demo complete.
 ```
 
-However if you wish to create a new wallet altogether and run your transactions from there do the following commands -
+However, if you would prefer to initialize a fresh wallet and perform transactions from it, run the following commands:
 
 ```bash
 sudo docker compose down -v
 sudo docker compose up —build
 ```
 
-The output will be looking something like this with a new wallet getting created and the transaction spent properly-
+You should see output similar to below, indicating that a new default wallet has been created and the transaction executed successfully:
 
 ```bash
 Compose can now delegate builds to bake for better performance.
@@ -145,11 +150,11 @@ bitcoin-tx-demo  | Second txid: abd3fb951a0e7bdae5d970f7e72b458235eebbae806bce09
 bitcoin-tx-demo  | Demo complete.
 ```
 
-Now, let's take this project for more spinning and further testing :)
+Now, let’s take this project for another spin and dive into some deeper testing 🙂
 
-If you wish to create more wallets directly from the terminal itslef and not rely on the default wallet getting generated or created follow the below steps 
+If you would rather create your own wallets manually from the terminal instead of using the auto-generated default one, just follow these steps below 👇
 
-1. Start the docker container. Make sure to build it as well if you have removed containers by `sudo docker compose down -v`
+1. Start the docker container. Make sure to build it as well if you have removed containers earlier by `sudo docker compose down -v`
 
 ```bash
 sudo docker compose start  
@@ -190,7 +195,7 @@ The output shows that two wallets have been created properly on the disk --
 }
 ```
 
-Before running the following list of commands make sure that your container is up and running
+Before running the following list of commands make sure that your container is properly up and running :)
 ```bash
 sudo docker compose start
 ```
@@ -212,6 +217,7 @@ docker compose exec btc-node \
 
 Output -- 
 In the output you can see the default wallet has been unloaded successfully and you can see the remaining two wallets on the disk which we had created earlier -- 
+
 ```bash
 {
 "wallets": [
@@ -228,7 +234,7 @@ In the output you can see the default wallet has been unloaded successfully and 
 }
 ```
 
-Now, if you want to see the currently loaded wallets on your disk (note -  we have already unloaded the default wallet) run this following command -- 
+Furthermore, if you want to see the currently loaded wallets on your disk (note -  we have already unloaded the default wallet) run this following command -- 
 
 ```bash
 docker compose exec btc-node \
@@ -245,7 +251,7 @@ The output will show you all the wallets you have currently loaded on your disk 
 ]
 ```
 
-Now, suppose we had unloaded the test1 wallet from our directory, there is also a way to reload them back :) Just follow the below commands for them -- 
+Now, suppose we had unloaded the `test1` wallet from our disk, there is also a way of reloading them back :) Just follow the below commands for them -- 
 
 ```bash
 docker compose exec btc-node \
@@ -253,13 +259,17 @@ docker compose exec btc-node \
 ```
 
 Output -
-The output now shows that you have loaded the wallet properly on your directory. 
+The output now shows that you have loaded the wallet properly on your disk and it is up for running. 
 
 ```bash
 {
 "name": "test1"
 }
 ```
+
+
+Ritankar Saha
+Github - https://github.com/ritankarsaha.
 
 
 
