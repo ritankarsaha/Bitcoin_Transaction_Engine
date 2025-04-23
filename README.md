@@ -145,3 +145,124 @@ bitcoin-tx-demo  | Second txid: abd3fb951a0e7bdae5d970f7e72b458235eebbae806bce09
 bitcoin-tx-demo  | Demo complete.
 ```
 
+Now, let's take this project for more spinning and further testing :)
+
+If you wish to create more wallets directly from the terminal itslef and not rely on the default wallet getting generated or created follow the below steps 
+
+1. Start the docker container. Make sure to build it as well if you have removed containers by `sudo docker compose down -v`
+
+```bash
+sudo docker compose start  
+```
+
+Output
+```bash
++] Running 1/1
+✔ Container bitcoin-tx-demo  Started
+```
+2. Generate and create the new wallets on your disk properly by running this command
+
+```bash
+docker exec bitcoin-tx-demo \
+bitcoin-cli -regtest createwallet "test1"     false false "" false false
+
+docker exec bitcoin-tx-demo \
+bitcoin-cli -regtest createwallet "experiment" false false "" false false
+```
+
+Output
+The output shows that two wallets have been created properly on the disk -- 
+
+```bash
+{
+"name": "test1",
+"warnings": [
+"Empty string given as passphrase, wallet will not be encrypted.",
+"Wallet created successfully. The legacy wallet type is being deprecated and support for creating and opening legacy wallets will be removed in the future."
+]
+}
+{
+"name": "experiment",
+"warnings": [
+"Empty string given as passphrase, wallet will not be encrypted.",
+"Wallet created successfully. The legacy wallet type is being deprecated and support for creating and opening legacy wallets will be removed in the future."
+]
+}
+```
+
+Before running the following list of commands make sure that your container is up and running
+```bash
+sudo docker compose start
+```
+
+If you wish to unload your default wallet then follow this command -- 
+
+```bash
+docker compose exec btc-node \
+  bitcoin-cli -regtest unloadwallet default >/dev/null 2>&1 || true
+```
+This command will unload your default wallet .
+
+If you want to list all the wallets which are at present , present on your disk follow this command -- 
+
+```bash
+docker compose exec btc-node \
+  bitcoin-cli -regtest listwalletdir
+```
+
+Output -- 
+In the output you can see the default wallet has been unloaded successfully and you can see the remaining two wallets on the disk which we had created earlier -- 
+```bash
+{
+"wallets": [
+{
+"name": "default"
+},
+{
+"name": "test1"
+},
+{
+"name": "experiment"
+}
+]
+}
+```
+
+Now, if you want to see the currently loaded wallets on your disk (note -  we have already unloaded the default wallet) run this following command -- 
+
+```bash
+docker compose exec btc-node \
+  bitcoin-cli -regtest listwallets
+```
+
+Output -- 
+The output will show you all the wallets you have currently loaded on your disk -- Note that the output will not be showing the default wallet as we have already unloaded the wallet from our disk
+
+```bash
+[
+"test1",
+"experiment"
+]
+```
+
+Now, suppose we had unloaded the test1 wallet from our directory, there is also a way to reload them back :) Just follow the below commands for them -- 
+
+```bash
+docker compose exec btc-node \
+  bitcoin-cli -regtest loadwallet "test1"
+```
+
+Output -
+The output now shows that you have loaded the wallet properly on your directory. 
+
+```bash
+{
+"name": "test1"
+}
+```
+
+
+
+
+
+
